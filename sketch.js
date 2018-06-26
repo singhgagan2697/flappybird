@@ -31,6 +31,7 @@ function draw() {
 
 		bird.show();
 		bird.update();
+		bird.think(pipes);
 
 		if(frameCount % 200 == 0) {
 			pipes.push(new Pipe())
@@ -41,12 +42,12 @@ function draw() {
 	}
 }
 
-function keyPressed() {
-	if(key == ' ') {
-		console.log("I jumped");
-		bird.up();
-	}
-}
+// function keyPressed() {
+// 	if(key == ' ') {
+// 		console.log("I jumped");
+// 		bird.up();
+// 	}
+// }
 
 function gameOver() {
 	text("Game Over", width/2 - 30, height/2 - 50);
