@@ -17,16 +17,35 @@ class Bird {
 
 
 	think(pipes) {
-		let inputs = [];
-		inputs[0] = this.y / height;
-		inputs[1] = pipes[0].top / height;
-		inputs[2] = pipes[0].bottom / height;
-		inputs[3] = pipes[0].x / width;
 
-		console.log(inputs);
+		let closest = null;
+		let closestD = Infinity;
+
+		for(let i = 0; i < pipes.length; i++) {
+			let d = pipes[i].x - this.x;
+			if(d < closestD && d >= 0) {
+				closest = pipes[i];
+				closestD = d;
+			}
+		}
+
+		let inputs = [];
+
+		if(closest != null) {
+			inputs[0] = this.y / height;
+			inputs[1] = closest.top / height;
+			inputs[2] = closest.bottom / height;
+			inputs[3] = closest.x / width;	
+		}
+		else {
+			inputs[0] = this.y / height;
+			inputs[1] = 0.5;
+			inputs[2] = 0.5;
+			inputs[3] = 0.5;
+		}
 
 		let output = this.brain.predict(inputs);
-		if(output > 0.5) {
+		if(output[0] > 0.5) {
 			this.up();
 		}
 	}

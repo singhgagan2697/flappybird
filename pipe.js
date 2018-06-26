@@ -12,7 +12,7 @@ function Pipe() {
 	|| ((height - this.bottom) - this.top > this.rangeUpLim));
 
 	this.x = width;
-	this.w = 20;
+	this.w = 50;
 	this.speed = 2;
 
 	this.highlight = false;

@@ -2,6 +2,7 @@ var bird;
 var pipes = [];
 var score = 0;
 var running = true;
+var canPipe = false;
 
 function setup() {
 	createCanvas(400, 600);
@@ -20,7 +21,7 @@ function draw() {
 			pipes[i].update();
 			
 			if(pipes[i].hits(bird)){
-				this.running = false;
+				//this.running = false;
 			}
 
 			if(pipes[i].offscreen()) {
@@ -33,8 +34,16 @@ function draw() {
 		bird.update();
 		bird.think(pipes);
 
+		if(frameCount % 175 == 0) {
+			canPipe = true;
+		}
 		if(frameCount % 200 == 0) {
-			pipes.push(new Pipe())
+			canPipe = false;
+		}
+
+		if(canPipe && random() > 0.2) {
+			pipes.push(new Pipe());
+			canPipe = false;
 		}
 	}
 	else {
