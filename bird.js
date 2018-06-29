@@ -1,5 +1,5 @@
 class Bird {
-	constructor() {
+	constructor(brain) {
 	this.y = height/2;
 	this.x = 50;
 	
@@ -7,14 +7,26 @@ class Bird {
 	this.lift = -15;
 	this.velocity = 0;
 
-	this.brain = new NeuralNetwork(4,4,1);
-	
+	this.score = 0;
+	this.fitness = 0;
+
+	if(brain) {
+		this.brain = brain.copy();
+	}
+	else {
+		this.brain = new NeuralNetwork(4, 4, 1);
+	}
+
 	}
 	show() {
-		fill(255);
+		stroke(255);
+		fill(255, 50);
 		ellipse(this.x, this.y, 32, 32);
 	}
 
+	mutate(mutationProb) {
+		this.brain.mutate(mutationProb);
+	}
 
 	think(pipes) {
 
@@ -50,10 +62,9 @@ class Bird {
 		}
 	}
 
-	update () {
+	update () {		
+		this.score++;
 
-		
-		
 		this.velocity += this.gravity;
 		this.velocity *= 0.9;
 		this.y += this.velocity;

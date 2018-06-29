@@ -1,4 +1,6 @@
-var bird;
+const TOTAL = 100;
+var birds = [];
+let savedBirds = [];
 var pipes = [];
 var score = 0;
 var running = true;
@@ -6,7 +8,9 @@ var canPipe = false;
 
 function setup() {
 	createCanvas(400, 600);
-	bird = new Bird();
+	for(let i = 0; i < TOTAL; i++) {
+		birds[i] = new Bird();
+	}
 	pipes.push(new Pipe());
 }
 
@@ -20,8 +24,13 @@ function draw() {
 			pipes[i].show();
 			pipes[i].update();
 			
-			if(pipes[i].hits(bird)){
-				//this.running = false;
+
+			for(let j = birds.length-1; j >=0; j--) {
+			
+				if(pipes[i].hits (birds[j])){
+					savedBirds.push(birds.splice(j, 1)[0]);
+					//this.running = false;
+				}	
 			}
 
 			if(pipes[i].offscreen()) {
@@ -30,9 +39,16 @@ function draw() {
 			}
 		}
 
-		bird.show();
-		bird.update();
-		bird.think(pipes);
+		for(let bird of birds) {
+			bird.show();
+			bird.update();
+			bird.think(pipes);
+		}
+
+		if(birds.length === 0) {
+			score = 0;
+			nextGeneration();
+		}
 
 		if(frameCount % 175 == 0) {
 			canPipe = true;
@@ -41,7 +57,7 @@ function draw() {
 			canPipe = false;
 		}
 
-		if(canPipe && random() > 0.2) {
+		if((canPipe && random() > 0.2) || pipes.length == 0) {
 			pipes.push(new Pipe());
 			canPipe = false;
 		}
