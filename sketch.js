@@ -5,18 +5,29 @@ var pipes = [];
 var score = 0;
 var running = true;
 var canPipe = false;
+let counter = 0;
 
 function setup() {
 	createCanvas(400, 600);
 	for(let i = 0; i < TOTAL; i++) {
 		birds[i] = new Bird();
 	}
-	pipes.push(new Pipe());
 }
 
 function draw() {
 	background(0);
+	
+	if(counter % 175 == 0) {
+		canPipe = true;
+	}
+	if(counter % 200 == 0) {
+		canPipe = false;
+	}
 
+	if((canPipe && random() > 0.2) || pipes.length == 0) {
+		pipes.push(new Pipe());
+		canPipe = false;
+	}
 	text(score, 15, 15)
 
 	if(this.running){
@@ -48,23 +59,15 @@ function draw() {
 		if(birds.length === 0) {
 			score = 0;
 			nextGeneration();
+			counter = 0;
+			pipes = [];
 		}
 
-		if(frameCount % 175 == 0) {
-			canPipe = true;
-		}
-		if(frameCount % 200 == 0) {
-			canPipe = false;
-		}
-
-		if((canPipe && random() > 0.2) || pipes.length == 0) {
-			pipes.push(new Pipe());
-			canPipe = false;
-		}
 	}
 	else {
 		gameOver();
 	}
+	counter++;
 }
 
 // function keyPressed() {
