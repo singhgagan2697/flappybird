@@ -1,17 +1,16 @@
 function nextGeneration() {
 
     calculateFitness();
-
-
     for(let i = 0; i < TOTAL; i++) {
         birds[i] = pickOne();
     }
+    savedBirds = [];
 }
 
 function calculateFitness() {
     let sum = 0;
     for(let bird of savedBirds) {
-        sum += savedBirds.score;
+        sum += bird.score;
     }
 
     for(let bird of savedBirds) {
