@@ -1,6 +1,6 @@
 # flappybird
-Genetic Algorithm and neural network flappy bird game in p5js
-
+Genetic Algorithm and neural network flappy bird game in p5js  
+*Neural Network implementation in flappybird_nn branch*  
 
 ### running the game
 Install p5JS and then simply open index.html (works best in Google Chrome)
